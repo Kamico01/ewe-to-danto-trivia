@@ -1,0 +1,214 @@
+[
+    {
+        "q": "Kí ni ìyàtọ̀ láàrin Baálẹ̀ àti Ọba?",
+        "a": "Baálẹ̀ jẹ́ olórí ìlú kékeré tàbí abúlé kò sí kìn dé adé, Ọba jẹ́ aládé àti olórí ìlú ńlá."
+    },
+    {
+        "q": "Kí ni ìyàtọ̀ láàrin igbá, igbà, àti igba?",
+        "a": "Igbá (calabash) jẹ́ ohun èlò tí a fi ń pọn omi tàbí gbé oúnjẹ, igbà túmọ̀ sí àkókò tàbí àsìkò, igba sì jẹ́ nọ́ḿbà (ogóòrùn-ún méjì)."
+    },
+    {
+        "q": "Kí ni ọ̀rọ̀ Yorùbá fún Camera?",
+        "a": "Ẹ̀rọ ayàwòrán."
+    },
+    {
+        "q": "Kí ni ọ̀rọ̀ Yorùbá fún Aeroplane?",
+        "a": "Ọkọ̀ òfuurufú."
+    },
+    {
+        "q": "Kí ni ọ̀rọ̀ Yorùbá fún Computer?",
+        "a": "Ẹ̀rọ ayárabíàṣà."
+    },
+    {
+        "q": "Kí ni ọ̀rọ̀ Yorùbá fún Spider?",
+        "a": "Aláǹtakùn."
+    },
+    {
+        "q": "Kí ni Òyìnbó ń pè ní Akandún?",
+        "a": "'Whitlow'."
+    },
+    {
+        "q": "Kí ni Òyìnbó ń pè ní Aporó?",
+        "a": "'Antidote' tàbí 'Antivenom'."
+    },
+    {
+        "q": "Kí ni Òyìnbó ń pè ní Awúre?",
+        "a": "'Good luck charm'."
+    },
+    {
+        "q": "Kí ni Òyìnbó ń pè ní Kòkòrò-ojú?",
+        "a": "'Pupil'."
+    },
+    {
+        "q": "Kí ni Òyìnbó ń pè ní Igbá-onírú?",
+        "a": "'Locust bean container'."
+    },
+    {
+        "q": "Kí ni Òyìnbó ń pè ní Ẹ̀rọ - Asọ̀rọ̀mágbèsì?",
+        "a": "'Radio'."
+    },
+    {
+        "q": "Kí ni Òyìnbó ń pè ní Ẹ̀rọ - Amúnáwá?",
+        "a": "'Generator' tabi 'Inverter'."
+    },
+    {
+        "q": "Kí ni Yorùbá fún 100?",
+        "a": "Ọgọ́rùn-ún."
+    },
+    {
+        "q": "Kí ni Yorùbá fún 200?",
+        "a": "Igba."
+    },
+    {
+        "q": "Kí ni Yorùbá fún 215?",
+        "a": "Ẹ̀ẹ́dógún-lé-nígba."
+    },
+    {
+        "q": "Kí ni Yorùbá fún 102?",
+        "a": "Méjì-lé-lọ́gọ́rùn-ún."
+    },
+    {
+        "q": "Kí ni Yorùbá fún 95?",
+        "a": "Márùn-ún-dín-lọ́gọ́rùn-ún."
+    },
+    {
+        "q": "Tí àwọn Yorùbá bá pe ènìyàn ní Aláwọ̀-mẹ́jì kí ló túmọ̀ sí?",
+        "a": "Ó túmọ̀ sí pé ẹ́níyan jé Alábòsí (Hypocrite)."
+    },
+    {
+        "q": "Tí àwọn Yorùbá bá pe ènìyàn ní Olójú-kòkòrò kí ló túmọ̀ sí?",
+        "a": "Ó túmọ̀ sí oníwọra tàbí ẹni tí kò ní ìtẹ́lọ́rùn pẹ̀lú ohun tó ní."
+    },
+    {
+        "q": "Tí àwọn Yorùbá bá pe ènìyàn ní Aláhọ́n-bídán kí ló túmọ̀ sí?",
+        "a": "Ó túmọ̀ sí ẹni tí ó gbọ́n lẹ́nu tàbí tó mọ ọ̀rọ̀ sọ láti fi yíni lógàn."
+    },
+    {
+        "q": "Parí òwe yìí: Bí kò bá nìdí...",
+        "a": "Èkúté ilé kì í rìn ọ̀sán."
+    },
+    {
+        "q": "Parí òwe yìí: Ìyàwó sọ̀rọ̀, ọkọ sọ̀rọ̀...",
+        "a": "A kì í mọ ẹni tó jẹ̀bi."
+    },
+    {
+        "q": "Parí òwe yìí: Ilé ọba tò jóná...",
+        "a": "Ẹwà ló bù kún un."
+    },
+    {
+        "q": "Parí òwe yìí: Ọwọ́ ọmọdé kò tó pẹpẹ...",
+        "a": "Tí agbalagba kò wọ akèrègbe."
+    },
+    {
+        "q": "Parí òwe yìí: Àkùkọ dúdú kọ́...",
+        "a": "Kò rí bíi ti funfun."
+    },
+    {
+        "q": "Parí òwe yìí: A kì í wà lórí ẹṣin...",
+        "a": "Kí á máa fa ẹṣin lẹ́yìn."
+    },
+    {
+        "q": "Parí òwe yìí: Bí a bá sọkò sí ọjà...",
+        "a": "Ará ilé ẹni ní í bá."
+    },
+    {
+        "q": "Parí òwe yìí: Àgùntàn tó bá bá ajá rìn...",
+        "a": "Yóò jẹ ìgbẹ́."
+    },
+    {
+        "q": "Parí òwe yìí: Tí ogun ẹni bá dáni lójú...",
+        "a": "A máa ń fi gbá orí ni."
+    },
+    {
+        "q": "Parí òwe yìí: Bí ọwọ́ eku bá ṣe mọ...",
+        "a": "Bẹ́ẹ̀ ni í nà án."
+    },
+    {
+        "q": "Dárúkọ àmútọ̀run mẹ́ta.",
+        "a": "Táyé, Kẹ́hìndé, Ìdòwú."
+    },
+    {
+        "q": "Dárúkọ Oṣù ọdún mẹ́fà ní Yorùbá.",
+        "a": "Ṣẹ́rẹ́, Èrèlè, Ẹrẹ̀nà, Ìgbé, Ẹ̀bìbì, Òkúdu."
+    },
+    {
+        "q": "Dárúkọ nǹkan méjì tí Yorùbá ń lò ní ìṣọmọlórúkọ.",
+        "a": "Oyin àti Iyọ̀."
+    },
+    {
+        "q": "Dárúkọ àbíkú mẹ́ta.",
+        "a": "Málọmọ́, Kòsọ́kọ́, Káṣìmáwòó."
+    },
+    {
+        "q": "Tí Yorùbá bá sọ wípé ènìyàn wẹ̀ ìgbọ̀nsẹ̀ kí ló túmọ̀ sí?",
+        "a": "Ó túmọ̀ sí pé ẹni náà nu ìdí rẹ̀ mọ́ lẹ́yìn tó yàgbẹ́ tán."
+    },
+    {
+        "q": "Tí Yorùbá bá sọ wípé ènìyàn fẹwọ́ kí ló túmọ̀ sí?",
+        "a": "Ó túmọ̀ sí pé ẹni náà jalè tàbí jí nǹkan."
+    },
+    {
+        "q": "Tí Yorùbá bá sọ wípé ènìyàn pa lẹ́nu mọ́ kí ló túmọ̀ sí?",
+        "a": "Ó túmọ̀ sí pé kí ẹni náà dákẹ́ tàbí dádé ọ̀rọ̀."
+    },
+    {
+        "q": "Tí Yorùbá bá sọ wípé ènìyàn sán kàkà mọ́ra kí ló túmọ̀ sí?",
+        "a": "Ó túmọ̀ sí pé kí ẹni náà fàyàrán ìṣòro tàbí mú sùúrù nínú ipò tí kò rọrùn."
+    },
+    {
+        "q": "Tí Yorùbá bá sọ wípé ènìyàn kú síbì kan kí ló túmọ̀ sí?",
+        "a": "Ó túmọ̀ sí pé ẹni náà jákùpọ̀ tàbí kú lójijì láìsàn tàbí láì kúrò ní ojú kan."
+    },
+    {
+        "q": "Tí Yorùbá bá sọ wípé ènìyàn dínú kí ló túmọ̀ sí?",
+        "a": "Ó túmọ̀ sí pé ẹni náà pa èrò inú rẹ̀ mọ́, kò sọ̀rọ̀ jáde, tàbí ó ní àkúnyín."
+    },
+    {
+        "q": "Lẹ́tà Fáwẹ́lì mélòó la ní ní Yorùbá?",
+        "a": "A ní fáwẹ́lì méje (a, e, ẹ, i, o, ọ, u)."
+    },
+    {
+        "q": "Lẹ́tà Kọ́ńsónáǹtì mélòó la ní ní Yorùbá?",
+        "a": "A ní kọ́ńsónáǹtì méjìdínlógún."
+    },
+    {
+        "q": "Kí ni Yorùbá fún 59?",
+        "a": "Ọ̀kàn-dín-lọ́gọ́ta."
+    },
+    {
+        "q": "Kí ni Yorùbá fún 127?",
+        "a": "Mẹ́tà-dín-láádóje."
+    },
+    {
+        "q": "Kí ni Yorùbá fún 46?",
+        "a": "Mẹ́rìn-dín-láàádọ́ta."
+    },
+    {
+        "q": "Kí ni Yorùbá fún 83?",
+        "a": "Mẹ́tà-lé-lọ́gọ́rin."
+    },
+    {
+        "q": "Kí ni Yorùbá fún 144?",
+        "a": "Mẹ́rìn-lé-lógóje."
+    },
+    {
+        "q": "Kí ni Yorùbá fún 198?",
+        "a": "Méjì-dín-nígba."
+    },
+    {
+        "q": "Kí ni Yorùbá fún 211?",
+        "a": "Mọ́kànlá-lé-nígba."
+    },
+    {
+        "q": "Kí ni Yorùbá fún 72?",
+        "a": "Méjì-lé-láádọ́rin."
+    },
+    {
+        "q": "Kí ni Yorùbá fún 165?",
+        "a": "Márùn-ún-dín-láádọ́sàn-án."
+    },
+    {
+        "q": "Kí ni Yorùbá fún 236?",
+        "a": "Mẹ́rìn-dín-lógójìlá."
+    }
+]

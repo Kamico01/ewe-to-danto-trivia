@@ -1,0 +1,128 @@
+<!-- Keep all your CSS and HTML styles exactly the same, just change the <script> block at the bottom -->
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
+<script>
+    // 1. Firebase Config Setup
+    const firebaseConfig = {
+      apiKey: "AIzaSyC8Xy9nHkLrSzpVZAyiA7mwjfXDK8B_W4U",
+      authDomain: "ewe-to-danto.firebaseapp.com",
+      projectId: "ewe-to-danto",
+      storageBucket: "ewe-to-danto.firebasestorage.app",
+      messagingSenderId: "838679266744",
+      appId: "1:838679266744:web:599eb54657ba110258fb4d"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database().ref("trivia_state");
+
+    // Since we are no longer using Python/Flask arrays, we load the database locally or can pull it from a JSON file.
+    // For setup ease, we use your question index count here:
+    const TOTAL_QUESTIONS = 52; 
+
+    let currentState = {
+        current_index: 0,
+        show_answer: false
+    };
+
+    // Listen for changes from Firebase to keep the Host View visually aligned
+    db.on("value", (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+            currentState = data;
+            updateHostDOM();
+        }
+    });
+
+    function updateHostDOM() {
+        const qr = document.getElementById('qr-container');
+        const qaWrap = document.getElementById('qa-wrapper');
+        const revealBtn = document.getElementById('reveal-btn');
+        const txt = document.getElementById('question-text');
+        const ans = document.getElementById('answer-preview');
+
+        // Update QR component link to point directly to your live GitHub Pages URL
+        // Replace 'yourusername' with your actual github name below
+        const viewerUrl = "https://yourusername.github.io/ewe-to-danto-trivia/"; 
+        document.getElementById('qr-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(viewerUrl)}`;
+        document.getElementById('ip-display').innerText = "Live Connected";
+
+        if (currentState.current_index === 0) {
+            qr.style.display = "flex";
+            qaWrap.style.display = "none";
+        } else {
+            qr.style.display = "none";
+            qaWrap.style.display = "flex";
+            
+            // Temporary indicators while you finish binding the JSON array to host side
+            txt.innerText = "Question " + currentState.current_index;
+            ans.innerText = currentState.show_answer ? "Answer Visible" : "..."; 
+            
+            if(currentState.show_answer) {
+                revealBtn.classList.add('active');
+                revealBtn.querySelector('span').innerText = "Hide Answer";
+            } else {
+                revealBtn.classList.remove('active');
+                revealBtn.querySelector('span').innerText = "Reveal Answer";
+            }
+        }
+    }
+
+    function toggleAnswer(e) { 
+        if(e) e.stopPropagation(); 
+        db.update({ show_answer: !currentState.show_answer });
+    }
+
+    function move(step) { 
+        let newIndex = currentState.current_index + step;
+        if (newIndex < 0) newIndex = 0;
+        if (newIndex > TOTAL_QUESTIONS) newIndex = 0; // Loop or end game
+        
+        db.update({ 
+            current_index: newIndex,
+            show_answer: false 
+        }); 
+    }
+
+    // Swipe Mechanism Handling
+    const card = document.getElementById('swipe-card');
+    let startX = 0, currentX = 0, isDragging = false;
+
+    card.addEventListener('touchstart', (e) => {
+        if (e.target.tagName.toUpperCase() === 'BUTTON' || e.target.closest('button') || e.target.id === 'ip-display') return; 
+        startX = e.touches[0].clientX;
+        isDragging = true;
+        card.style.transition = 'none'; 
+    });
+
+    card.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        currentX = e.touches[0].clientX;
+        let deltaX = currentX - startX;
+        card.style.transform = `translateX(${deltaX}px) rotate(${deltaX * 0.05}deg)`;
+    });
+
+    card.addEventListener('touchend', (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+        let deltaX = currentX - startX;
+        card.style.transition = 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+        
+        if (deltaX < -100) {
+            card.style.transform = `translateX(-150vw) rotate(-20deg)`; 
+            setTimeout(() => { move(1); resetCardPosition(1); }, 250);
+        } else if (deltaX > 100) {
+            card.style.transform = `translateX(150vw) rotate(20deg)`;
+            setTimeout(() => { move(-1); resetCardPosition(-1); }, 250);
+        } else { card.style.transform = `translateX(0px) rotate(0deg)`; }
+    });
+
+    function resetCardPosition(direction) {
+        card.style.transition = 'none';
+        card.style.transform = `translateX(${direction > 0 ? '100vw' : '-100vw'}) rotate(${direction > 0 ? '15deg' : '-15deg'})`;
+        setTimeout(() => {
+            card.style.transition = 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            card.style.transform = `translateX(0px) rotate(0deg)`;
+        }, 50);
+    }
+</script>

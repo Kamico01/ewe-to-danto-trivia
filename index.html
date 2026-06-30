@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Street Trivia - Viewer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            background: #50C878; 
+            margin: 0; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            width: 100vw;
+            overflow: hidden; 
+            position: relative;
+        }
+
+        /* 1. BACKGROUND */
+        .full-screen-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover; 
+            z-index: 0;
+        }
+        
+        .q-tracker { 
+            position: absolute; 
+            top: 5%; 
+            right: 5%; 
+            background: #FFD100; 
+            padding: 8px 22px; 
+            border-radius: 25px; 
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-variation-settings: "wdth" 100, "wght" 700;
+            font-size: 1.4rem; 
+            color: #000;
+            border: 3px solid #000; 
+            box-shadow: 2px 3px 0 #000; 
+            z-index: 10;
+            display: none; 
+        }
+
+        /* 2. FULL SCREEN STAGE */
+        .card-stage {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh; 
+            z-index: 1;
+        }
+
+        /* 3. PINNED ASSETS */
+        .artboard-asset {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain; 
+        }
+
+        .z-logo { z-index: 2; object-position: top; }
+        .z-base { z-index: 1; object-position: bottom; }
+        .z-stack { z-index: 3; object-position: center; }
+
+        /* 4. SWIPING SURFACE */
+        .swipe-surface {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 4;
+        }
+
+        .surface-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain; 
+            object-position: center; 
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        .a-bg { opacity: 0; }
+        .swipe-surface.dark .q-bg { opacity: 0; }
+        .swipe-surface.dark .a-bg { opacity: 1; }
+
+        /* 5. TEXT OVERLAY */
+        .text-overlay {
+            position: absolute;
+            top: 43%; 
+            left: 50%;
+            transform: translate(-50%, 0) rotate(3deg); 
+            width: 60%; 
+            height: 48%; 
+            max-height: 280px;
+            z-index: 5; 
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            transition: top 0.2s ease, transform 0.2s ease; 
+        }
+
+        .swipe-surface.dark .text-overlay {
+            top: 40%;
+            transform: translate(-50%, 0) rotate(1deg);
+        }
+
+        .question-text, .answer-text { 
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-variation-settings: "wdth" 75, "wght" 600;
+            font-size: 2.6rem; 
+            line-height: 1.15; 
+            letter-spacing: -0.02em;
+            text-align: center;
+            width: 100%;
+            margin: 0;
+            word-wrap: break-word; 
+        }
+
+        .question-text { color: #111; }
+        .answer-text { color: #fff; display: none; }
+
+        .swipe-surface.dark .question-text { display: none; }
+        .swipe-surface.dark .answer-text { display: block; }
+
+        .waiting-text { 
+            color: #111; 
+            font-size: 1.8rem !important; 
+            animation: pulse 2s infinite; 
+        }
+
+        @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+        @keyframes swipeOutLeft { to { transform: translateX(-150vw) rotate(-15deg); opacity: 0; } }
+        @keyframes swipeOutRight { to { transform: translateX(150vw) rotate(15deg); opacity: 0; } }
+        @keyframes swipeInRight { from { transform: translateX(150vw) rotate(15deg); opacity: 0; } to { transform: translateX(0) rotate(0deg); opacity: 1; } }
+        @keyframes swipeInLeft { from { transform: translateX(-150vw) rotate(-15deg); opacity: 0; } to { transform: translateX(0) rotate(0deg); opacity: 1; } }
+    </style>
+</head>
+<body>
+    
+    <img src="./static/viewer/bg.png" class="full-screen-bg" alt="Background" onerror="this.style.display='none'" />
+    <div class="q-tracker" id="tracker">Q0/0</div>
+
+    <div class="card-stage">
+        <img src="./static/viewer/logo.png" class="artboard-asset z-logo" alt="Logo" onerror="this.style.display='none'" />
+        <img src="./static/viewer/base.png" class="artboard-asset z-base" alt="Base Lines" onerror="this.style.display='none'" />
+        <img src="./static/viewer/cards.png" class="artboard-asset z-stack" alt="Card Stack" />
+
+        <div class="swipe-surface" id="main-card">
+            <img src="./static/viewer/card.png" class="surface-img q-bg" alt="Question Card" />
+            <img src="./static/viewer/answer.png" class="surface-img a-bg" alt="Answer Card" />
+            
+            <div class="text-overlay" id="text-box">
+                <div class="question-text" id="q-text">Connecting...</div>
+                <div class="answer-text" id="a-text"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase Compat Libraries Required for Static GitHub Hosting -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
+    <script>
+        // Memory holder for database data array
+        let TRIVIA_BANK = [];
+
+        // Firebase Configuration Setup
+        const firebaseConfig = {
+          apiKey: "AIzaSyC8Xy9nHkLrSzpVZAyiA7mwjfXDK8B_W4U",
+          authDomain: "ewe-to-danto.firebaseapp.com",
+          projectId: "ewe-to-danto",
+          storageBucket: "ewe-to-danto.firebasestorage.app",
+          messagingSenderId: "838679266744",
+          appId: "1:838679266744:web:599eb54657ba110258fb4d"
+        };
+
+        // Initialize Firebase instances
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database().ref("trivia_state");
+
+        let currentIdx = -1;
+        let isRevealed = false;
+
+        // Smart text-autofit script engine
+        function fitText(element) {
+            if (window.getComputedStyle(element).display === 'none') return;
+            
+            let size = 2.6; 
+            element.style.fontSize = size + "rem";
+            const container = document.getElementById('text-box');
+            
+            while (element.scrollHeight > (container.clientHeight - 5) && size > 1.2) {
+                size -= 0.1; 
+                element.style.fontSize = size + "rem";
+            }
+        }
+
+        // Fetch local JSON file asynchronously 
+        async function loadTriviaDatabase() {
+            try {
+                const response = await fetch('./questions.json'); 
+                const data = await response.json();
+                
+                // Construct structure deck locally in client runtime
+                TRIVIA_BANK = [{"q": "Waiting for host...", "a": "N/A"}];
+                TRIVIA_BANK.push(...data);
+                TRIVIA_BANK.push({"q": "Thank you for participating!", "a": "N/A"});
+                
+                // Fire real-time snapshot sync only after array successfully structures
+                startLiveSync();
+            } catch (error) {
+                document.getElementById('q-text').innerText = "Database Connection Error";
+                console.error("JSON fetch pipeline break:", error);
+            }
+        }
+
+        // Active Firebase Reactive Stream Listener
+        function startLiveSync() {
+            db.on("value", (snapshot) => {
+                const state = snapshot.val();
+                if (!state) return;
+
+                const card = document.getElementById('main-card');
+                const tracker = document.getElementById('tracker');
+                const totalQs = TRIVIA_BANK.length - 2; // Exclude intro and outro bounds
+
+                const currentData = {
+                    index: state.current_index,
+                    question: TRIVIA_BANK[state.current_index] ? TRIVIA_BANK[state.current_index].q : "End of Game",
+                    answer: TRIVIA_BANK[state.current_index] ? TRIVIA_BANK[state.current_index].a : "N/A"
+                };
+
+                // Track and adjust slide index counts
+                if (currentData.index > 0 && currentData.index <= totalQs) {
+                    tracker.innerText = `Q${currentData.index}/${totalQs}`;
+                    tracker.style.display = 'block';
+                } else {
+                    tracker.style.display = 'none';
+                }
+
+                // Manage real-time visibility mutations
+                if (state.show_answer !== isRevealed) {
+                    isRevealed = state.show_answer;
+                    if (isRevealed && currentData.index > 0) {
+                        card.classList.add('dark');
+                        setTimeout(() => fitText(document.getElementById('a-text')), 350);
+                    } else {
+                        card.classList.remove('dark');
+                    }
+                }
+
+                // Trigger animations cleanly only on real layout state jumps
+                if (currentData.index !== currentIdx) {
+                    if (currentIdx !== -1) {
+                        let direction = currentData.index > currentIdx ? 'swipeOutLeft' : 'swipeOutRight';
+                        let inDirection = currentData.index > currentIdx ? 'swipeInRight' : 'swipeInLeft';
+                        card.style.animation = `${direction} 0.3s forwards`;
+                        setTimeout(() => {
+                            renderTextData(currentData);
+                            card.style.animation = `${inDirection} 0.3s forwards`;
+                        }, 300);
+                    } else {
+                        renderTextData(currentData);
+                    }
+                    currentIdx = currentData.index;
+                }
+            });
+        }
+
+        function renderTextData(data) {
+            const q = document.getElementById('q-text');
+            const a = document.getElementById('a-text');
+            
+            q.innerText = data.question;
+            a.innerText = data.answer;
+            
+            if (data.index === 0) {
+                q.className = "question-text waiting-text";
+            } else {
+                q.className = "question-text";
+                q.style.fontSize = "2.6rem";
+                a.style.fontSize = "2.6rem";
+                
+                setTimeout(() => fitText(q), 350);
+                if (isRevealed) {
+                    setTimeout(() => fitText(a), 350);
+                }
+            }
+        }
+
+        // Initialize runtime boot sequences
+        loadTriviaDatabase();
+    </script>
+</body>
+</html>
