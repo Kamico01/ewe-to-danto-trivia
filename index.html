@@ -167,7 +167,7 @@
     <div class="card-stage">
         <img src="./static/viewer/logo.png" class="artboard-asset z-logo" alt="Logo" onerror="this.style.display='none'" />
         <img src="./static/viewer/base.png" class="artboard-asset z-base" alt="Base Lines" onerror="this.style.display='none'" />
-        <img src="./static/viewer/cards.png" class="artboard-asset z-stack" alt="Card Stack" />
+        <img src="./static/viewer/cards.png" class="artboard-asset z-stack" id="card-stack" alt="Card Stack" />
 
         <div class="swipe-surface" id="main-card">
             <img src="./static/viewer/card.png" class="surface-img q-bg" alt="Question Card" />
@@ -245,6 +245,7 @@
 
                 const card = document.getElementById('main-card');
                 const tracker = document.getElementById('tracker');
+                const cardStack = document.getElementById('card-stack'); // GRAB THE STACK HERE
                 const totalQs = TRIVIA_BANK.length - 2; // Exclude intro and outro bounds
 
                 const currentData = {
@@ -266,9 +267,11 @@
                     isRevealed = state.show_answer;
                     if (isRevealed && currentData.index > 0) {
                         card.classList.add('dark');
+                        if (cardStack) cardStack.style.display = 'none'; // HIDE STACK
                         setTimeout(() => fitText(document.getElementById('a-text')), 350);
                     } else {
                         card.classList.remove('dark');
+                        if (cardStack) cardStack.style.display = 'block'; // SHOW STACK
                     }
                 }
 
