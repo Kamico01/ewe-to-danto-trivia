@@ -87,11 +87,18 @@
             height: 100%;
             object-fit: contain; 
             object-position: center; 
-            transition: opacity 0.2s ease-in-out;
+            /* Added transform to the transition for the disappear effect */
+            transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
         }
 
         .a-bg { opacity: 0; }
-        .swipe-surface.dark .q-bg { opacity: 0; }
+        
+        /* Fades out and drops backward slightly to disappear */
+        .swipe-surface.dark .q-bg { 
+            opacity: 0; 
+            transform: scale(0.95);
+        }
+        
         .swipe-surface.dark .a-bg { opacity: 1; }
 
         /* 5. TEXT OVERLAY */
@@ -112,6 +119,7 @@
         }
 
         .swipe-surface.dark .text-overlay {
+            /* Changed from 40% to 45% */
             top: 45%;
             transform: translate(-50%, 0) rotate(1deg);
         }
@@ -168,7 +176,6 @@
         </div>
     </div>
 
-    <!-- Firebase Compat Libraries Required for Static GitHub Hosting -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 
