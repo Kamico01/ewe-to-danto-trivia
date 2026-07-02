@@ -87,15 +87,17 @@
             height: 100%;
             object-fit: contain; 
             object-position: center; 
-            /* Reverted back to just opacity transition for the answer card */
             transition: opacity 0.2s ease-in-out;
         }
 
         .a-bg { opacity: 0; }
         
-        /* Instantly hides the question card without fading or scaling */
+        /* Forcefully and instantly hide the question card image */
         .swipe-surface.dark .q-bg { 
-            display: none; 
+            display: none !important;
+            opacity: 0 !important; 
+            visibility: hidden !important;
+            transition: none !important;
         }
         
         .swipe-surface.dark .a-bg { opacity: 1; }
@@ -137,7 +139,11 @@
         .question-text { color: #111; }
         .answer-text { color: #fff; display: none; }
 
-        .swipe-surface.dark .question-text { display: none; }
+        .swipe-surface.dark .question-text { 
+            display: none !important; 
+            opacity: 0 !important;
+            visibility: hidden !important;
+        }
         .swipe-surface.dark .answer-text { display: block; }
 
         .waiting-text { 
