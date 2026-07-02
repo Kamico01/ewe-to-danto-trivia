@@ -87,16 +87,15 @@
             height: 100%;
             object-fit: contain; 
             object-position: center; 
-            /* Added transform to the transition for the disappear effect */
-            transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+            /* Reverted back to just opacity transition for the answer card */
+            transition: opacity 0.2s ease-in-out;
         }
 
         .a-bg { opacity: 0; }
         
-        /* Fades out and drops backward slightly to disappear */
+        /* Instantly hides the question card without fading or scaling */
         .swipe-surface.dark .q-bg { 
-            opacity: 0; 
-            transform: scale(0.95);
+            display: none; 
         }
         
         .swipe-surface.dark .a-bg { opacity: 1; }
@@ -119,7 +118,6 @@
         }
 
         .swipe-surface.dark .text-overlay {
-            /* Changed from 40% to 45% */
             top: 45%;
             transform: translate(-50%, 0) rotate(1deg);
         }
