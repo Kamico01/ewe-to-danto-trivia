@@ -28,21 +28,23 @@
             z-index: 0;
         }
         
+        /* Updated Question Tracker */
         .q-tracker { 
             position: absolute; 
-            top: 5%; 
+            top: 15%; /* Brought down 10% from the original 5% */
             right: 5%; 
-            background: #FFD100; 
-            padding: 8px 22px; 
-            border-radius: 25px; 
+            width: 130px; /* Adjust if your qu.png needs to be wider/narrower */
+            height: 60px; /* Adjust if your qu.png needs to be taller/shorter */
+            background: url('./static/viewer/qu.png') no-repeat center center;
+            background-size: contain;
             font-family: 'Bricolage Grotesque', sans-serif;
             font-variation-settings: "wdth" 100, "wght" 700;
             font-size: 1.4rem; 
             color: #000;
-            border: 3px solid #000; 
-            box-shadow: 2px 3px 0 #000; 
             z-index: 10;
-            display: none; 
+            display: none; /* Toggled to 'flex' by JS */
+            justify-content: center;
+            align-items: center;
         }
 
         /* 2. FULL SCREEN STAGE */
@@ -92,15 +94,24 @@
 
         .a-bg { opacity: 0; }
         
-        /* Forcefully and instantly hide the question card image */
-        .swipe-surface.dark .q-bg { 
+        /* --- ANSWER MODE STRICT ENFORCEMENT --- */
+        .answer-mode #card-stack,
+        .answer-mode .q-bg,
+        .answer-mode .question-text { 
             display: none !important;
             opacity: 0 !important; 
             visibility: hidden !important;
             transition: none !important;
         }
         
-        .swipe-surface.dark .a-bg { opacity: 1; }
+        .answer-mode .a-bg { 
+            opacity: 1 !important; 
+            visibility: visible !important; 
+        }
+        
+        .answer-mode .answer-text { 
+            display: flex !important; 
+        }
 
         /* 5. TEXT OVERLAY */
         .text-overlay {
@@ -119,7 +130,7 @@
             transition: top 0.2s ease, transform 0.2s ease; 
         }
 
-        .swipe-surface.dark .text-overlay {
+        .answer-mode .text-overlay {
             top: 45%;
             transform: translate(-50%, 0) rotate(1deg);
         }
@@ -136,15 +147,8 @@
             word-wrap: break-word; 
         }
 
-        .question-text { color: #111; }
-        .answer-text { color: #fff; display: none; }
-
-        .swipe-surface.dark .question-text { 
-            display: none !important; 
-            opacity: 0 !important;
-            visibility: hidden !important;
-        }
-        .swipe-surface.dark .answer-text { display: block; }
+        .question-text { color: #111; display: flex; flex-direction: column; }
+        .answer-text { color: #fff; display: none; flex-direction: column; }
 
         .waiting-text { 
             color: #111; 
@@ -164,7 +168,7 @@
     <img src="./static/viewer/bg.png" class="full-screen-bg" alt="Background" onerror="this.style.display='none'" />
     <div class="q-tracker" id="tracker">Q0/0</div>
 
-    <div class="card-stage">
+    <div class="card-stage" id="card-stage">
         <img src="./static/viewer/logo.png" class="artboard-asset z-logo" alt="Logo" onerror="this.style.display='none'" />
         <img src="./static/viewer/base.png" class="artboard-asset z-base" alt="Base Lines" onerror="this.style.display='none'" />
         <img src="./static/viewer/cards.png" class="artboard-asset z-stack" id="card-stack" alt="Card Stack" />
@@ -243,9 +247,9 @@
                 const state = snapshot.val();
                 if (!state) return;
 
+                const cardStage = document.getElementById('card-stage');
                 const card = document.getElementById('main-card');
                 const tracker = document.getElementById('tracker');
-                const cardStack = document.getElementById('card-stack'); // GRAB THE STACK HERE
                 const totalQs = TRIVIA_BANK.length - 2; // Exclude intro and outro bounds
 
                 const currentData = {
@@ -257,21 +261,19 @@
                 // Track and adjust slide index counts
                 if (currentData.index > 0 && currentData.index <= totalQs) {
                     tracker.innerText = `Q${currentData.index}/${totalQs}`;
-                    tracker.style.display = 'block';
+                    tracker.style.display = 'flex'; // Uses flex to center over the qu.png asset
                 } else {
                     tracker.style.display = 'none';
                 }
 
-                // Manage real-time visibility mutations
+                // Manage real-time visibility mutations seamlessly via CSS classes
                 if (state.show_answer !== isRevealed) {
                     isRevealed = state.show_answer;
                     if (isRevealed && currentData.index > 0) {
-                        card.classList.add('dark');
-                        if (cardStack) cardStack.style.display = 'none'; // HIDE STACK
+                        cardStage.classList.add('answer-mode');
                         setTimeout(() => fitText(document.getElementById('a-text')), 350);
                     } else {
-                        card.classList.remove('dark');
-                        if (cardStack) cardStack.style.display = 'block'; // SHOW STACK
+                        cardStage.classList.remove('answer-mode');
                     }
                 }
 
